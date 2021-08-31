@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import axios from "axios";
 
 function dashboard({ uncompleted }) {
   console.log(uncompleted);
@@ -161,15 +162,16 @@ function dashboard({ uncompleted }) {
 }
 
 export async function getServerSideProps(context) {
-  const res = await fetch(`/api`);
-  const data = await res.json();
+ const data = await axios.get("https://booking-app-5.herokuapp.com/api");
+  const response = data.data;
+
 
   if (!data) {
     return {
       notFound: true,
     };
   }
-  var uncompleted = data.filter(function (item) {
+  var uncompleted = response.filter(function (item) {
     return item.completed == false;
   });
   console.log(uncompleted, "uncom");

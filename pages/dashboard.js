@@ -161,7 +161,7 @@ function dashboard({ uncompleted }) {
 }
 
 export async function getServerSideProps(context) {
-  const res = await fetch(`http://localhost:3000/api`);
+  const res = await fetch(`https://booking-app-5.herokuapp.com/api`);
   const data = await res.json();
 
   if (!data) {

@@ -1,6 +1,7 @@
 import React from "react";
 import Head from "next/head";
 import Link from "next/link";
+import axios from "axios";
 
 function completed({ completed }) {
   return (
@@ -136,15 +137,16 @@ function completed({ completed }) {
 }
 
 export async function getServerSideProps(context) {
-  const res = await fetch(`/api`);
-  const data = await res.json();
+const data = await axios.get("https://booking-app-5.herokuapp.com/api");
+  const response = data.data;
+
 
   if (!data) {
     return {
       notFound: true,
     };
   }
-  var completed = data.filter(function (item) {
+  var completed = response.filter(function (item) {
     return item.completed === true;
   });
   return {
